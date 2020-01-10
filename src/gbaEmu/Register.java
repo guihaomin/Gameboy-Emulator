@@ -3,7 +3,7 @@ package gbaEmu;
 public class Register {
 	byte a,b,c,d,e,f,h,l; //int can cause problem because register is 8-bit.
 	boolean zf, nf, hf, cf;
-	int pc, sp;
+	short pc, sp;
 	public int af() {
 		return a << 8 | f;
 	}

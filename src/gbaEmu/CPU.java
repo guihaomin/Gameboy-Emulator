@@ -47,7 +47,7 @@ public class CPU {
 		return 0;
 	}
 	public int putSP(int value) {
-		register.sp = value;
+		register.sp = (short) value;
 		return 0;
 	}
 	public int putAF(int value) {
