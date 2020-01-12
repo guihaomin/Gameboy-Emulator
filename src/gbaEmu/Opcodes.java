@@ -1117,4 +1117,421 @@ public class Opcodes {
 		cpu.putSP(cpu.register.sp - 1);
 		return 0;
 	}
+	public int OPCB() {
+		byte n = cpu.getValue8();
+		if (cpu.opMap.containsKey(0xCB << 2 + n)) {
+			Runnable op = cpu.opMap.get(0xCB << 2 + n);
+			op.run();
+		} else {
+			return -1;
+		}
+		return cpu.opCycles.get(0xCB << 2 + n);
+	}
+	private byte swapByteAndSetFlags(byte a) {
+		byte res = (byte) (((a & 0xF) << 4) | ((a & 0xF0) >> 4));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = res == 0;
+		return res;
+	}
+	public int OPCB37() {
+		cpu.register.a = swapByteAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB30() {
+		cpu.register.b = swapByteAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB31() {
+		cpu.register.c = swapByteAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB32() {
+		cpu.register.d = swapByteAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB33() {
+		cpu.register.e = swapByteAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB34() {
+		cpu.register.h = swapByteAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB35() {
+		cpu.register.l = swapByteAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB36() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = swapByteAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	public int OP2F() {
+		cpu.register.a = (byte) (cpu.register.a ^ 0xFF);
+		cpu.register.nf = true;
+		cpu.register.hf = true;
+		cpu.register.zf = false;
+		cpu.register.cf = false;
+		return 0;
+	}
+	public int OP3F() {
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.cf = !cpu.register.cf;
+		return 0;
+	}
+	public int OP37() {
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.cf = true;
+		return 0;
+	}
+	public int OP00() {
+		return 0;
+	}
+	public int OP07() {
+		cpu.register.cf = (cpu.register.a >> 7) == 1;
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.a = (byte) (cpu.register.a << 1 | cpu.register.a >> 7);
+		cpu.register.zf = cpu.register.a == 0;
+		return 0;
+	}
+	public int OP17() {
+		byte carryFlag = 0;
+		if (cpu.register.cf) {
+			carryFlag = 1;
+		}
+		cpu.register.cf = (cpu.register.a >> 7) == 1;
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.a = (byte) (cpu.register.a << 1 | carryFlag);
+		cpu.register.zf = cpu.register.a == 0;
+		return 0;
+	}
+	public int OP0F() {
+		cpu.register.cf = (cpu.register.a & 1) == 1;
+		cpu.register.a = (byte) ((cpu.register.a >> 1) | ((cpu.register.a & 1) << 7));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = cpu.register.a == 0;
+		return 0;
+	}
+	public int OP1F() {
+		byte carryFlag = 0;
+		if (cpu.register.cf) {
+			carryFlag = 1;
+		}
+		cpu.register.cf = (cpu.register.a & 1) == 1;
+		cpu.register.a = (byte) ((cpu.register.a >> 1) | (carryFlag << 7));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = cpu.register.a == 0;
+		return 0;
+	}
+	private byte leftRotAndSetFlags(byte a) {
+		cpu.register.cf = (a >> 7) == 1;
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.a = (byte) (a << 1 | a >> 7);
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB07() {
+		cpu.register.a = leftRotAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB00() {
+		cpu.register.b = leftRotAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB01() {
+		cpu.register.c = leftRotAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB02() {
+		cpu.register.d = leftRotAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB03() {
+		cpu.register.e = leftRotAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB04() {
+		cpu.register.h = leftRotAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB05() {
+		cpu.register.l = leftRotAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB06() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = leftRotAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte leftRotCarryAndSetFlags(byte a) {
+		byte carryFlag = 0;
+		if (cpu.register.cf) {
+			carryFlag = 1;
+		}
+		cpu.register.cf = (a >> 7) == 1;
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		a = (byte) (a << 1 | carryFlag);
+		cpu.register.zf = a == 0;
+		return 0;
+	}
+	public int OPCB17() {
+		cpu.register.a = leftRotCarryAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB10() {
+		cpu.register.b = leftRotCarryAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB11() {
+		cpu.register.c = leftRotCarryAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB12() {
+		cpu.register.d = leftRotCarryAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB13() {
+		cpu.register.e = leftRotCarryAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB14() {
+		cpu.register.h = leftRotCarryAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB15() {
+		cpu.register.l = leftRotCarryAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB16() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = leftRotCarryAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte rightRotAndSetFlags(byte a) {
+		cpu.register.cf = (a & 1) == 1;
+		a = (byte) ((a >> 1) | ((a & 1) << 7));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB0F() {
+		cpu.register.a = rightRotAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB08() {
+		cpu.register.b = rightRotAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB09() {
+		cpu.register.c = rightRotAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB0A() {
+		cpu.register.d = rightRotAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB0B() {
+		cpu.register.e = rightRotAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB0C() {
+		cpu.register.h = rightRotAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB0D() {
+		cpu.register.l = rightRotAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB0E() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = rightRotAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte rightRotCarryAndSetFlags(byte a) {
+		byte carryFlag = 0;
+		if (cpu.register.cf) {
+			carryFlag = 1;
+		}
+		cpu.register.cf = (a & 1) == 1;
+		a = (byte) ((a >> 1) | (carryFlag << 7));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB1F() {
+		cpu.register.a = rightRotCarryAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB18() {
+		cpu.register.b = rightRotCarryAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB19() {
+		cpu.register.c = rightRotCarryAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB1A() {
+		cpu.register.d = rightRotCarryAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB1B() {
+		cpu.register.e = rightRotCarryAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB1C() {
+		cpu.register.h = rightRotCarryAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB1D() {
+		cpu.register.l = rightRotCarryAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB1E() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = rightRotCarryAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte leftShiftAndSetFlags(byte a) {
+		cpu.register.cf = (a >> 7) == 1;
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.a = (byte) (a << 1);
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB27() {
+		cpu.register.a = leftShiftAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB20() {
+		cpu.register.b = leftShiftAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB21() {
+		cpu.register.c = leftShiftAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB22() {
+		cpu.register.d = leftShiftAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB23() {
+		cpu.register.e = leftShiftAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB24() {
+		cpu.register.h = leftShiftAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB25() {
+		cpu.register.l = leftShiftAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB26() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = leftShiftAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte sraAndSetFlags(byte a) {
+		cpu.register.cf = (a & 1) == 1;
+		a = (byte) ((a >> 1) | (a & 0x80));
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB2F() {
+		cpu.register.a = sraAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB28() {
+		cpu.register.b = sraAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB29() {
+		cpu.register.c = sraAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB2A() {
+		cpu.register.d = sraAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB2B() {
+		cpu.register.e = sraAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB2C() {
+		cpu.register.h = sraAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB2D() {
+		cpu.register.l = sraAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB2E() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = sraAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
+	private byte srlAndSetFlags(byte a) {
+		cpu.register.cf = (a & 1) == 1;
+		a = (byte) ((a >> 1) & 0x7F);
+		cpu.register.nf = false;
+		cpu.register.hf = false;
+		cpu.register.zf = a == 0;
+		return a;
+	}
+	public int OPCB3F() {
+		cpu.register.a = srlAndSetFlags(cpu.register.a);
+		return 0;
+	}
+	public int OPCB38() {
+		cpu.register.b = srlAndSetFlags(cpu.register.b);
+		return 0;
+	}
+	public int OPCB39() {
+		cpu.register.c = srlAndSetFlags(cpu.register.c);
+		return 0;
+	}
+	public int OPCB3A() {
+		cpu.register.d = srlAndSetFlags(cpu.register.d);
+		return 0;
+	}
+	public int OPCB3B() {
+		cpu.register.e = srlAndSetFlags(cpu.register.e);
+		return 0;
+	}
+	public int OPCB3C() {
+		cpu.register.h = srlAndSetFlags(cpu.register.h);
+		return 0;
+	}
+	public int OPCB3D() {
+		cpu.register.l = srlAndSetFlags(cpu.register.l);
+		return 0;
+	}
+	public int OPCB3E() {
+		byte n = memory.readMemory(cpu.register.hl());
+		n = srlAndSetFlags(n);
+		memory.writeMemory(cpu.register.hl(), n);
+		return 0;
+	}
 }
