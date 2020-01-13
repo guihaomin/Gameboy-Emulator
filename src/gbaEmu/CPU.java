@@ -1,8 +1,13 @@
 package gbaEmu;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CPU {
 	Register register;
 	Memory memory;
+	Map<Integer, Runnable> opMap = new HashMap<>();
+	Map<Integer, Integer> opCycles = new HashMap<>();
 	public CPU(Memory memory) {
 		this.memory = memory;
 	}
