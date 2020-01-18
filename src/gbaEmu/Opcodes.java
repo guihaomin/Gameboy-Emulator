@@ -1873,4 +1873,323 @@ public class Opcodes {
 		cpu.register.a = resetBit(cpu.register.a, 1);
 		return 0;
 	}
+	public int OPCB90() {
+		cpu.register.b = resetBit(cpu.register.b, 2);
+		return 0;
+	}
+	public int OPCB91() {
+		cpu.register.c = resetBit(cpu.register.c, 2);
+		return 0;
+	}
+	public int OPCB92() {
+		cpu.register.d = resetBit(cpu.register.d, 2);
+		return 0;
+	}
+	public int OPCB93() {
+		cpu.register.e = resetBit(cpu.register.e, 2);
+		return 0;
+	}
+	public int OPCB94() {
+		cpu.register.h = resetBit(cpu.register.h, 2);
+		return 0;
+	}
+	public int OPCB95() {
+		cpu.register.l = resetBit(cpu.register.l, 2);
+		return 0;
+	}
+	public int OPCB96() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 2));
+		return 0;
+	}
+	public int OPCB97() {
+		cpu.register.a = resetBit(cpu.register.a, 2);
+		return 0;
+	}
+	public int OPCB98() {
+		cpu.register.b = resetBit(cpu.register.b, 3);
+		return 0;
+	}
+	public int OPCB99() {
+		cpu.register.c = resetBit(cpu.register.c, 3);
+		return 0;
+	}
+	public int OPCB9A() {
+		cpu.register.d = resetBit(cpu.register.d, 3);
+		return 0;
+	}
+	public int OPCB9B() {
+		cpu.register.e = resetBit(cpu.register.e, 3);
+		return 0;
+	}
+	public int OPCB9C() {
+		cpu.register.h = resetBit(cpu.register.h, 3);
+		return 0;
+	}
+	public int OPCB9D() {
+		cpu.register.l = resetBit(cpu.register.l, 3);
+		return 0;
+	}
+	public int OPCB9E() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 3));
+		return 0;
+	}
+	public int OPCB9F() {
+		cpu.register.a = resetBit(cpu.register.a, 3);
+		return 0;
+	}
+	public int OPCBA0() {
+		cpu.register.b = resetBit(cpu.register.b, 4);
+		return 0;
+	}
+	public int OPCBA1() {
+		cpu.register.c = resetBit(cpu.register.c, 4);
+		return 0;
+	}
+	public int OPCBA2() {
+		cpu.register.d = resetBit(cpu.register.d, 4);
+		return 0;
+	}
+	public int OPCBA3() {
+		cpu.register.e = resetBit(cpu.register.e, 4);
+		return 0;
+	}
+	public int OPCBA4() {
+		cpu.register.h = resetBit(cpu.register.h, 4);
+		return 0;
+	}
+	public int OPCBA5() {
+		cpu.register.l = resetBit(cpu.register.l, 4);
+		return 0;
+	}
+	public int OPCBA6() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 4));
+		return 0;
+	}
+	public int OPCBA7() {
+		cpu.register.a = resetBit(cpu.register.a, 4);
+		return 0;
+	}
+	public int OPCBA8() {
+		cpu.register.b = resetBit(cpu.register.b, 5);
+		return 0;
+	}
+	public int OPCBA9() {
+		cpu.register.c = resetBit(cpu.register.c, 5);
+		return 0;
+	}
+	public int OPCBAA() {
+		cpu.register.d = resetBit(cpu.register.d, 5);
+		return 0;
+	}
+	public int OPCBAB() {
+		cpu.register.e = resetBit(cpu.register.e, 5);
+		return 0;
+	}
+	public int OPCBAC() {
+		cpu.register.h = resetBit(cpu.register.h, 5);
+		return 0;
+	}
+	public int OPCBAD() {
+		cpu.register.l = resetBit(cpu.register.l, 5);
+		return 0;
+	}
+	public int OPCBAE() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 5));
+		return 0;
+	}
+	public int OPCBAF() {
+		cpu.register.a = resetBit(cpu.register.a, 5);
+		return 0;
+	}
+	public int OPCBB0() {
+		cpu.register.b = resetBit(cpu.register.b, 6);
+		return 0;
+	}
+	public int OPCBB1() {
+		cpu.register.c = resetBit(cpu.register.c, 6);
+		return 0;
+	}
+	public int OPCBB2() {
+		cpu.register.d = resetBit(cpu.register.d, 6);
+		return 0;
+	}
+	public int OPCBB3() {
+		cpu.register.e = resetBit(cpu.register.e, 6);
+		return 0;
+	}
+	public int OPCBB4() {
+		cpu.register.h = resetBit(cpu.register.h, 6);
+		return 0;
+	}
+	public int OPCBB5() {
+		cpu.register.l = resetBit(cpu.register.l, 6);
+		return 0;
+	}
+	public int OPCBB6() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 6));
+		return 0;
+	}
+	public int OPCBB7() {
+		cpu.register.a = resetBit(cpu.register.a, 6);
+		return 0;
+	}
+	public int OPCBB8() {
+		cpu.register.b = resetBit(cpu.register.b, 7);
+		return 0;
+	}
+	public int OPCBB9() {
+		cpu.register.c = resetBit(cpu.register.c, 7);
+		return 0;
+	}
+	public int OPCBBA() {
+		cpu.register.d = resetBit(cpu.register.d, 7);
+		return 0;
+	}
+	public int OPCBBB() {
+		cpu.register.e = resetBit(cpu.register.e, 7);
+		return 0;
+	}
+	public int OPCBBC() {
+		cpu.register.h = resetBit(cpu.register.h, 7);
+		return 0;
+	}
+	public int OPCBBD() {
+		cpu.register.l = resetBit(cpu.register.l, 7);
+		return 0;
+	}
+	public int OPCBBE() {
+		byte n = memory.readMemory(cpu.register.hl());
+		memory.writeMemory(cpu.register.hl(), resetBit(n, 7));
+		return 0;
+	}
+	public int OPCBBF() {
+		cpu.register.a = resetBit(cpu.register.a, 7);
+		return 0;
+	}
+	public int OPC3() {
+		cpu.register.pc = cpu.getValue16();
+		return 0;
+	}
+	public int OPC2() {
+		if (!cpu.register.zf) {
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPCA() {
+		if (cpu.register.zf) {
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPD2() {
+		if (!cpu.register.cf) {
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPDA() {
+		if (cpu.register.cf) {
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPE9() {
+		cpu.register.pc = cpu.register.hl();
+		return 0;
+	}
+	public int OP18() {
+		cpu.register.pc += cpu.getValue8();
+		return 0;
+	}
+	public int OP20() {
+		if (!cpu.register.zf) {
+			cpu.register.pc += cpu.getValue8();
+		}
+		return 0;
+	}
+	public int OP28() {
+		if (cpu.register.zf) {
+			cpu.register.pc += cpu.getValue8();
+		}
+		return 0;
+	}
+	public int OP30() {
+		if (!cpu.register.cf) {
+			cpu.register.pc += cpu.getValue8();
+		}
+		return 0;
+	}
+	public int OP38() {
+		if (cpu.register.cf) {
+			cpu.register.pc += cpu.getValue8();
+		}
+		return 0;
+	}
+	public int OPCD() {
+		memory.stackPush((short) (cpu.register.pc));
+		cpu.register.pc = cpu.getValue16();
+		return 0;
+	}
+	public int OPC4() {
+		if (!cpu.register.zf) {
+			memory.stackPush((short) (cpu.register.pc));
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPCC() {
+		if (cpu.register.zf) {
+			memory.stackPush((short) (cpu.register.pc));
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPD4() {
+		if (!cpu.register.cf) {
+			memory.stackPush((short) (cpu.register.pc));
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPDC() {
+		if (cpu.register.cf) {
+			memory.stackPush((short) (cpu.register.pc));
+			cpu.register.pc = cpu.getValue16();
+		}
+		return 0;
+	}
+	public int OPC9() {
+		cpu.register.pc = memory.stackPop();
+		return 0;
+	}
+	public int OPC0() {
+		if (!cpu.register.zf) {
+			cpu.register.pc = memory.stackPop();
+		}
+		return 0;
+	}
+	public int OPC8() {
+		if (cpu.register.zf) {
+			cpu.register.pc = memory.stackPop();
+		}
+		return 0;
+	}
+	public int OPD0() {
+		if (!cpu.register.cf) {
+			cpu.register.pc = memory.stackPop();
+		}
+		return 0;
+	}
+	public int OPD8() {
+		if (cpu.register.cf) {
+			cpu.register.pc = memory.stackPop();
+		}
+		return 0;
+	}
 }

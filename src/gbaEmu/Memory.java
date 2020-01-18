@@ -14,7 +14,7 @@ public class Memory {
 		return 0;
 	}
 	// 16 bit stack push
-	public int stackPush(int value) {
+	public int stackPush(short value) {
 		cpu.register.sp--;
 		writeMemory(cpu.register.sp, (byte) (value >> 8));
 		cpu.register.sp--;
@@ -22,11 +22,11 @@ public class Memory {
 		return 0;
 	}
 	//16 bit stack pop
-	public int stackPop() {
+	public short stackPop() {
 		cpu.register.sp++;
 		int low = readMemory(cpu.register.sp);
 		cpu.register.sp++;
 		int high = readMemory(cpu.register.sp);
-		return high << 8 | low;
+		return (short) (high << 8 | low);
 	}
 }
