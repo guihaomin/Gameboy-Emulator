@@ -13,6 +13,9 @@ public class Memory {
 		mainMemory[address] = value;
 		return 0;
 	}
+	public void memoryIncrement(int address) {
+		mainMemory[address]++;
+	}
 	// 16 bit stack push
 	public int stackPush(short value) {
 		cpu.register.sp--;
